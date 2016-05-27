@@ -24,6 +24,7 @@ $.ajax({
         q: 'remote developer ' + query,
         latlong: '1',
         // co: 'ca',
+        //start: 0,
         sort: 'date',
         limit: '25'
     }
@@ -41,9 +42,63 @@ $.ajax({
 // TO STORE: latitude, longtitude, for Google Maps API for time zones
         // .start for
 
+
+
 // DISPLAY DATA FUNCTION
 
 remote.displayData = function(data){
+    var latlongArray = [];
+
+    data.map(function(jobs){
+        // if (jobs.latitude != null || jobs.longitude != null){
+        // latlongArray.push(latlong);
+        // }  
+        if (jobs.latitude === undefined) {
+            jobs.latitude = 0;
+        }
+
+        if (jobs.longitude === undefined) {
+            jobs.longitude = 0;
+        }
+
+        var latlong = jobs.latitude + ',' + jobs.longitude;
+        latlongArray.push(latlong);
+        console.log(latlong);
+    });
+    // console.log(latlongArray);
+
+    var googleMapsAPI = latlongArray.map(function(latlong){
+        // console.log(latlong);
+            return $.ajax({
+                    url: 'https://maps.googleapis.com/maps/api/timezone/json',
+                    method: 'GET',
+                    dataType: 'json',
+                    data:{
+                        location: latlong,
+                        timestamp: 1331161200 ,
+                        key: googleAPIKey
+                    }
+            });
+    });
+
+    $.when.apply(null, googleMapsAPI)
+        .then(function(){
+            var timeZoneArray = Array.prototype.slice.call(arguments);
+
+            console.log(timeZoneArray);
+            getTimeZone(timeZoneArray);
+        });
+
+    function getTimeZone(timeZoneArray){
+        timeZone = timeZoneArray.map(function(time){
+            return time[0].timeZoneName;
+        })
+        console.log(timeZone);
+    };
+
+
+
+
 
     data.forEach(function(jobs){
 
@@ -61,11 +116,10 @@ remote.displayData = function(data){
 
          // STORING DATA FOR GOOGLE MAPS
 
-        if (jobs.latitude != null || jobs.longitude != null){
-            var latlong = jobs.latitude + ',' + jobs.longitude;
-        }  
+        // if (jobs.latitude != null || jobs.longitude != null){
+        //     var latlong = jobs.latitude + ',' + jobs.longitude;
+        // }  
 
-        remote.getTimeZone(latlong);
     });
 };
 
@@ -73,47 +127,47 @@ remote.displayData = function(data){
 // make and multiple ajax call to Google Maps using .when because we will be passing an array 
 // What will be returned is an array-like object in which we will use .map to iterate through this array and do stuff
 
-remote.getTimeZone = function(latlong){
-    $.ajax({
-        url: 'https://maps.googleapis.com/maps/api/timezone/json',
-        method: 'GET',
-        dataType: 'json',
-        data:{
-            location: latlong,
-            timestamp: 1331161200 ,
-            key: googleAPIKey
-        }
-    }).then(function(timeZoneData){
-        // console.log(timeZoneData);
-        var array = [];
-        array.push(timeZoneData);
-        console.log(array);
-        remote.displayTimeZone(timeZoneData);
-    });
-};
+// remote.getTimeZone = function(latlong){
+//     $.ajax({
+//         url: 'https://maps.googleapis.com/maps/api/timezone/json',
+//         method: 'GET',
+//         dataType: 'json',
+//         data:{
+//             location: latlong,
+//             timestamp: 1331161200 ,
+//             key: googleAPIKey
+//         }
+//     }).then(function(timeZoneData){
+//         console.log(timeZoneData);
+//         // console.log(array);
+//         remote.displayTimeZone(timeZoneData);
+//     });
+// };
+
+
 
 // We are receivng multiple objects and we need to push these objects into and array and extra timeZoneName from this array of objects
 // we need to make a multiple
 
-remote.displayTimeZone = function(timeZone){
-        // console.log(timeZone);
-        var timeZoneArray = [];
-        // for (timeZoneName in timeZone) {
-        //     timeZoneArray.push(timeZoneName);
-        // }
-        // console.log(timeZoneArray);
-    // if (timeZone === undefined){
+// remote.displayTimeZone = function(timeZone){
+//         // console.log(timeZone);
+//         // var timeZoneArray = [];
+//         // for (timeZoneName in timeZone) {
+//         //     timeZoneArray.push(timeZoneName);
+//         // }
+//         // console.log(timeZoneArray);
+//     // if (timeZone === undefined){
 
-    // }
-    // var timeZoneArray = [];
-    // timeZoneArray.push(timeZone);
-    // console.log(timeZoneArray);
+//     // }
+//     // var timeZoneArray = [];
+//     // timeZoneArray.push(timeZone);
+//     // console.log(timeZoneArray);
 
-    var time = $('<h2>').text(timeZone);
-    $('.results').append(time);
+//     var time = $('<h2>').text(timeZone);
+//     $('.results').append(time);
 
-    // timezones displaying at bottom
-};
+//     // timezones displaying at bottom
+// };
 
 
 // INIT FUNCTION
