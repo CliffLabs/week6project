@@ -26,7 +26,7 @@ $.ajax({
         // co: 'ca',
         //start: 0,
         sort: 'date',
-        limit: '10'
+        limit: '25'
     }
 }).then(function(data) {
     	// console.log(data);
@@ -96,8 +96,8 @@ remote.googleData = function(data){
             return time[0].timeZoneName;
         })
 
+        remote.finalResults(data);
     };
-    remote.finalResults(data);
 }; 
 
 
@@ -105,9 +105,9 @@ remote.googleData = function(data){
 
 // need to write a function for data.forEach and call it after getTimeZone
 
-// DATA IS ONLY APPENDING ON SECOND CLICKKKKK
+
 remote.finalResults = function(data){
-    console.log(data);
+    // console.log(data);
 
     data.forEach(function(jobs, i){
         console.log(i);
