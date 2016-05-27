@@ -44,6 +44,8 @@ $.ajax({
 
 
 
+
+
 // DISPLAY DATA FUNCTION
 
 remote.displayData = function(data){
@@ -143,7 +145,6 @@ remote.displayData = function(data){
 //         remote.displayTimeZone(timeZoneData);
 //     });
 // };
-
 
 
 // We are receivng multiple objects and we need to push these objects into and array and extra timeZoneName from this array of objects
