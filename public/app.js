@@ -24,6 +24,7 @@ $.ajax({
         q: 'remote developer ' + query,
         latlong: '1',
         // co: 'ca',
+        //start: 0,
         sort: 'date',
         limit: '25'
     }
@@ -43,17 +44,26 @@ $.ajax({
 
 // DISPLAY DATA FUNCTION
 remote.displayData = function(data){
-
-
     var latlongArray = [];
 
     data.map(function(jobs){
-        var latlong = jobs.latitude + ',' + jobs.longitude;
-        if (jobs.latitude != null || jobs.longitude != null){
-        latlongArray.push(latlong);
+        // if (jobs.latitude != null || jobs.longitude != null){
+        // latlongArray.push(latlong);
+        // }  
+        if (jobs.latitude === undefined) {
+            jobs.latitude = 0;
         }
+
+        if (jobs.longitude === undefined) {
+            jobs.longitude = 0;
+        }
+
+        var latlong = jobs.latitude + ',' + jobs.longitude;
+        latlongArray.push(latlong);
+        console.log(latlong);
     });
     // console.log(latlongArray);
+
     var googleMapsAPI = latlongArray.map(function(latlong){
         // console.log(latlong);
             return $.ajax({
