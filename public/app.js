@@ -33,23 +33,35 @@ $.ajax({
         limit: '25'
     }
 }).then(function(data) {
-    	console.log(data.results);
+    	// console.log(data);
+        remote.displayData(data.results);
 	});
 };
 
 //Need to write a forEach to iterate through the array of jobs and pull out certain properties for us to display onto the page 
-// Some properties to be stored for
-
 // DISPLAY: jobtitle, company, formattedLocation, snippet, url, formattedRelativeTime
 
 // TO STORE: latitude, longtitude, for Google Maps API for time zones
-        // .start for
 
 // DISPLAY DATA FUNCTION
-remote.displayData = function(){
+remote.displayData = function(data){
+    // console.log(data);
+    data.forEach(function(jobs){
 
+        jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
+        var jobTitle = $('<h2>').text(jobs.jobtitle);
+        var company = $('<h3>').text(jobs.company);
+        var location = $('<h3>').text(jobs.formattedLocation);
+        var jobDescription = $('<p>').text(jobs.snippet);
+        var indeedUrl = $('<a>').attr('href', jobs.url);
+        var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
+        console.log(jobTitle);
 
+        // we need to take these variables that we've defined and displa it on our html
+        $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime);
+        // console.log(jobTitle + company + location + jobDescription + indeedUrl + postingTime);
+    });
 };
 
 
