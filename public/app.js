@@ -42,10 +42,6 @@ $.ajax({
 // TO STORE: latitude, longtitude, for Google Maps API for time zones
         // .start for
 
-
-
-
-
 // DISPLAY DATA FUNCTION
 
 remote.displayData = function(data){
@@ -99,11 +95,8 @@ remote.displayData = function(data){
     };
 
 
-
-
-
     data.forEach(function(jobs){
-
+        
         jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
         var jobTitle = $('<h2>').text(jobs.jobtitle);
@@ -112,6 +105,7 @@ remote.displayData = function(data){
         var jobDescription = $('<p>').text(jobs.snippet);
         var indeedUrl = $('<a>').attr('href', jobs.url);
         var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
+
 
         // we need to take these variables that we've defined and displa it on our html
         $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime);
