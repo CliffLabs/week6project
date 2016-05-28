@@ -1,1 +1,70 @@
 @import 'setup';
+
+
+// VARIABLES
+$Droid: 'Droid Sans Mono' ;
+$Lato: 'Lato', sans-serif;
+$teal: #378976;
+$white: #FFFFFF;
+$gold: #DB9F3C;
+$grey: #A8B8B8;
+
+// MIXINS
+@mixin font-size($size-value){
+	font-size: $size-value * 1px;
+	font-size: ($size-value/10)*1rem;
+}
+
+
+//STYLING
+
+html {
+	font-size: 62.5%;
+	line-height: 1.357;
+}
+
+body {
+	font-family: $Lato;
+	background: $grey;
+}
+
+h1, h2, h3, h4, h5, p, li {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	@include font-size(50);
+}
+
+h2 {
+	@include font-size(25);
+}
+
+h3 {
+	@include font-size(18);
+}
+
+p {
+	@include font-size(16);
+}
+
+
+
+
+
+//HEADER
+
+input#search-query {
+	width: 25%;
+	font-size: 2.5rem;
+	padding: 5px;
+}
+
+input#submit {
+	font-size: 2.5rem;
+	padding: 5px;
+}
+
+
+
