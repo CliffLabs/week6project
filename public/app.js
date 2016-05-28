@@ -118,7 +118,8 @@ remote.finalResults = function(data){
         var company = $('<h3>').text(jobs.company);
         var location = $('<h3>').text(jobs.formattedLocation);
         var jobDescription = $('<p>').text(jobs.snippet);
-        var indeedUrl = $('<a>').attr('href', jobs.url);
+        var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
+
         var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
         var zone = $('<h3>').text(remote.timeZone[i]);
 
@@ -142,3 +143,6 @@ remote.init = function() {
 $(function(){
     remote.init();
 });
+
+
+// 
