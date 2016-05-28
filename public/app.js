@@ -103,6 +103,7 @@ remote.googleData = function(data){
     };
 }; 
 
+
 // need to append timezone data onto the page according to the appropriate job posting
 
 // need to write a function for data.forEach and call it after getTimeZone
@@ -120,7 +121,6 @@ remote.finalResults = function(data){
         var location = $('<h3>').text(jobs.formattedLocation);
         var jobDescription = $('<p>').text(jobs.snippet);
         var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
-
         var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
         var zone = $('<h3>').text(remote.timeZone[i]);
 
