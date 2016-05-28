@@ -91,11 +91,14 @@ remote.googleData = function(data){
             getTimeZone(timeZoneArray);
         });
 
+// take timezone data thats being pushed to the page for the timezone data
+// that appears (0,0), we need to change that data to say ("NA") via "if" statements
+
     function getTimeZone(timeZoneArray){
         remote.timeZone = timeZoneArray.map(function(time){
             return time[0].timeZoneName;
         })
-
+        console.log(remote.timeZone);
         remote.finalResults(data);
     };
 }; 
@@ -116,15 +119,29 @@ remote.finalResults = function(data){
         var company = $('<h3>').text(jobs.company);
         var location = $('<h3>').text(jobs.formattedLocation);
         var jobDescription = $('<p>').text(jobs.snippet);
-        var indeedUrl = $('<a>').attr('href', jobs.url);
+        var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
+
         var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
         var zone = $('<h3>').text(remote.timeZone[i]);
-
 
         // we need to take these variables that we've defined and displa it on our html
         $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
     });
 };
+
+// change timezone data to abreiviated form via "if" statements
+// Filter through "jobs.snippet" to find certain phrases that
+// indicate that certain jobs are not remote, ie: "not remote"
+// use an "if" statement eiliminate the job postings that contain this data
+// Create an event-listener for the coutnry drop-down menu that will allow
+// the user to search for jobs by country
+// Allow users to go to next page and recieve next 10 results
+// do this by creating an event listener when the user clicks "next page"
+// do this using "simplePagination.js"
+// Make search bar empty most recent results and load next search.
+// when user puts curser on "search" field, remove text.
+// Remove job counter 
+
 
 // INIT FUNCTION
 remote.init = function() {
@@ -140,18 +157,6 @@ remote.init = function() {
 $(function(){
     remote.init();
 });
-
-// 
-
-
-
-
-
-
-
-
-
-
 
 
 
