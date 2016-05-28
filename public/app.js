@@ -29,6 +29,7 @@ $.ajax({
         limit: '25'
     }
 }).then(function(data) {
+
     	// console.log(data);
         remote.googleData(data.results);
 	});
@@ -36,19 +37,18 @@ $.ajax({
 
 
 //Need to write a forEach to iterate through the array of jobs and pull out certain properties for us to display onto the page 
+// Some properties to be stored for
+
 // DISPLAY: jobtitle, company, formattedLocation, snippet, url, formattedRelativeTime
 
 // TO STORE: latitude, longtitude, for Google Maps API for time zones
-
-
-
+        // .start for
 
 // GET data from Google Maps API
 // make and multiple ajax call to Google Maps using .when because we will be passing an array 
 // What will be returned is an array-like object in which we will use .map to iterate through this array and do stuff
 
 remote.googleData = function(data){
-
     var latlongArray = [];
 
     data.map(function(jobs){
@@ -91,14 +91,22 @@ remote.googleData = function(data){
             getTimeZone(timeZoneArray);
         });
 
+// take timezone data thats being pushed to the page for the timezone data
+// that appears (0,0), we need to change that data to say ("NA") via "if" statements
+
     function getTimeZone(timeZoneArray){
         remote.timeZone = timeZoneArray.map(function(time){
             return time[0].timeZoneName;
         })
-
+        console.log(remote.timeZone);
         remote.finalResults(data);
     };
 }; 
+
+
+// need to append timezone data onto the page according to the appropriate job posting
+
+// need to write a function for data.forEach and call it after getTimeZone
 
 
 remote.finalResults = function(data){
@@ -106,7 +114,6 @@ remote.finalResults = function(data){
 
     data.forEach(function(jobs, i){
         console.log(i);
-
         jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
         var jobTitle = $('<h2>').text(jobs.jobtitle);
@@ -121,6 +128,19 @@ remote.finalResults = function(data){
         $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
     });
 };
+
+// change timezone data to abreiviated form via "if" statements
+// Filter through "jobs.snippet" to find certain phrases that
+// indicate that certain jobs are not remote, ie: "not remote"
+// use an "if" statement eiliminate the job postings that contain this data
+// Create an event-listener for the coutnry drop-down menu that will allow
+// the user to search for jobs by country
+// Allow users to go to next page and recieve next 10 results
+// do this by creating an event listener when the user clicks "next page"
+// do this using "simplePagination.js"
+// Make search bar empty most recent results and load next search.
+// when user puts curser on "search" field, remove text.
+// Remove job counter 
 
 
 // INIT FUNCTION
@@ -139,4 +159,22 @@ $(function(){
 });
 
 
-// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
