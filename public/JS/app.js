@@ -28,16 +28,15 @@ remote.renderPagination = function(data, resetPagination){
                 if(event) {
                     event.preventDefault();
                 }
-                var query = $('input[type=text]').val();
                 var startAt = (pageNumber - 1) * resultsPerPage;
-                remote.getData(query, startAt);
+                remote.getData(startAt);
             }
         });
     }
 };
 
-// GET DATA /AJAX CALL
-remote.getData = function(query, startAt, resetPagination){
+// GET DATA //FIRST AJAX CALL
+remote.getData = function(startAt, resetPagination){
 $.ajax({
     url: 'http://api.indeed.com/ads/apisearch',
     method: 'GET',
@@ -46,9 +45,9 @@ $.ajax({
     	publisher: '8031956003452346',
         v: '2',
         format: 'json',
-        q: query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
+        q: results.query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
         latlong: '1',
-        // co: country,
+        co: results.country,
         start: startAt,
         sort: 'date',
         limit: '10'
@@ -57,6 +56,13 @@ $.ajax({
         remote.renderPagination(data, resetPagination);
         $('.results').html('');
         remote.googleData(data.results);
+        // ERIN'S Code -- check with Sarah
+        //if (data.totalResults === 0) {
+        //     console.log("no results!");
+        //   $('.results').append('<h3>Sorry, there are no results for your query.</br> Try searching again using different terms.</h3>') 
+        // } else {
+        //     remote.googleData(data.results);
+        // };
 	});
 };
 
@@ -72,7 +78,7 @@ $.ajax({
         // .start for
 
 // GET data from Google Maps API
-// make and multiple ajax call to Google Maps using .when because we will be passing an array 
+// make a multiple ajax call to Google Maps using .when because we will be passing an array 
 // What will be returned is an array-like object in which we will use .map to iterate through this array and do stuff
 
 remote.googleData = function(data){
@@ -156,7 +162,13 @@ remote.finalResults = function(data){
             $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
         //};
     });
+    //remote.clearInputs();
 };
+
+// remote.clearInputs = function(){
+//     $('input[type=text]').val('');
+//     $('select').val('');
+// }
 
 // 1) Change timezone data to abreiviated form via "if" statements
 
@@ -179,15 +191,34 @@ remote.finalResults = function(data){
 remote.init = function() {
     $('form').on('submit', function(e){
         e.preventDefault();
-        var query = $('input[type=text]').val();
-        var country = $("select").val();
-    	remote.getData(query, 0, true);
+        $('.results').empty();
+        $('header').hide();
+        $('main').show();
+        $('footer').show();
+        results.query = $('input[type=text]').val();
+        results.country = $('select').val();
+    	remote.getData(0, true);
+    });
+};
+
+remote.secondSearch = function() {
+    $('#second-search').on('submit', function(e){
+        e.preventDefault();
+        $('.results').empty();
+        $('header').hide();
+        $('main').show();
+        $('footer').show();
+        results.query = $('input[type=text]').val();
+        results.country = $('#second-search-country').val();
+        remote.getData(0, true);
     });
 };
 
 // DOCUMENT READY
 $(function(){
     remote.init();
+    $('main').hide();
+    $('footer').hide();
 });
 
 
