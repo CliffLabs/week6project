@@ -106,6 +106,7 @@ remote.googleData = function(data){
     };
 }; 
 
+
 // need to append timezone data onto the page according to the appropriate job posting
 
 // need to write a function for data.forEach and call it after getTimeZone
@@ -117,19 +118,6 @@ remote.finalResults = function(data){
     data.forEach(function(jobs, i){
         jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
-<<<<<<< HEAD
-        var jobTitle = $('<h2>').text(jobs.jobtitle);
-        var company = $('<h3>').text(jobs.company);
-        var location = $('<h3>').text(jobs.formattedLocation);
-        var jobDescription = $('<p>').text(jobs.snippet);
-        var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
-
-        var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
-        var zone = $('<h3>').text(remote.timeZone[i]);
-
-        // we need to take these variables that we've defined and displa it on our html
-        $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
-=======
             var jobTitle = $('<h2>').text(jobs.jobtitle);
             var company = $('<h3>').text(jobs.company);
             var location = $('<h3>').text(jobs.formattedLocation);
@@ -141,7 +129,6 @@ remote.finalResults = function(data){
             // we need to take these variables that we've defined and displa it on our html
             $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
         //};
->>>>>>> ff76b782dac4dd00e61b23ca860edcd452f81efe
     });
 };
 
