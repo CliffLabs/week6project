@@ -34,7 +34,8 @@ h1, h2, h3, h4, h5, p, li {
 }
 
 h1 {
-	@include font-size(50);
+	@include font-size(55);
+	color: $gold;
 }
 
 h2 {
@@ -55,16 +56,63 @@ p {
 
 //HEADER
 
+header {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	.flex-container{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 80%;
+	}
+
+	.form-container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
 input#search-query {
-	width: 25%;
+	width: 30%;
 	font-size: 2.5rem;
-	padding: 5px;
+	padding: 9px;
 }
 
 input#submit {
 	font-size: 2.5rem;
-	padding: 5px;
+	padding: 12px;
 }
 
+select#search-country {
+	width: 30%;
+	background-position: 93% 50%; 
+	border: none;
+	border-radius: 0;
+	outline: 1px solid lightgrey;
+	padding: 10px 20px;
+	color: lightgrey;
+	-webkit-appearance: none;
+	font-size: 2.5rem;
+}
+
+.header-video {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -1;
+	transform: translate(-50%, -50%);
+	}
+}
 
 
