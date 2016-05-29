@@ -11,8 +11,33 @@ var remote = {};
 
 var googleAPIKey = 'AIzaSyDwrMAUq00y5-e7XSYl51CjQadoGn9REF0';
 
+remote.renderPagination = function(data, resetPagination){
+    var totalResults = data.totalResults;
+    var resultsPerPage = 10;
+    if($('.pagination').hasClass('simple-pagination')) {
+        $('.pagination').pagination('updateItems', data.totalResults);
+        if(resetPagination) {
+            $('.pagination').pagination('selectPage', 1);
+        }
+    }else{
+        $('.pagination').pagination({
+            items: totalResults,
+            itemsOnPage: resultsPerPage,
+            cssStyle: 'light-theme',
+            onPageClick: function(pageNumber, event){
+                if(event) {
+                    event.preventDefault();
+                }
+                var query = $('input[type=text]').val();
+                var startAt = (pageNumber - 1) * resultsPerPage;
+                remote.getData(query, startAt);
+            }
+        });
+    }
+};
+
 // GET DATA /AJAX CALL
-remote.getData = function(query){
+remote.getData = function(query, startAt, resetPagination){
 $.ajax({
     url: 'http://api.indeed.com/ads/apisearch',
     method: 'GET',
@@ -23,17 +48,19 @@ $.ajax({
         format: 'json',
         q: query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
         latlong: '1',
-        //co: country,
-        //start: 0,
+        // co: country,
+        start: startAt,
         sort: 'date',
-        limit: '25'
+        limit: '10'
     }
 }).then(function(data) {
-
-    	// console.log(data);
+        remote.renderPagination(data, resetPagination);
+        $('.results').html('');
         remote.googleData(data.results);
 	});
 };
+
+
 
 
 //Need to write a forEach to iterate through the array of jobs and pull out certain properties for us to display onto the page 
@@ -154,8 +181,7 @@ remote.init = function() {
         e.preventDefault();
         var query = $('input[type=text]').val();
         var country = $("select").val();
-        // console.log(query);
-    	remote.getData(query);
+    	remote.getData(query, 0, true);
     });
 };
 
