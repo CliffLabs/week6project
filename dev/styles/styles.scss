@@ -69,6 +69,9 @@ header {
 		justify-content: center;
 		align-items: center;
 		width: 80%;
+		img.laptop-svg {
+			width: 80px;
+		}
 	}
 
 	.form-container {
@@ -77,6 +80,8 @@ header {
 		justify-content: center;
 		align-items: center;
 	}
+
+
 }
 
 input#search-query {
@@ -113,6 +118,13 @@ select#search-country {
 	z-index: -1;
 	transform: translate(-50%, -50%);
 	}
+}
+
+
+// RESULTS
+
+section.results {
+	background: $teal;
 }
 
 
