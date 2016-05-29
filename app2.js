@@ -21,15 +21,14 @@ $.ajax({
     	publisher: '8031956003452346',
         v: '2',
         format: 'json',
-        q: query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
+        q: 'remote developer ' + query,
         latlong: '1',
-        co: country,
+        // co: 'ca',
         //start: 0,
         sort: 'date',
         limit: '25'
     }
 }).then(function(data) {
-
     	// console.log(data);
         remote.googleData(data.results);
 	});
@@ -37,18 +36,19 @@ $.ajax({
 
 
 //Need to write a forEach to iterate through the array of jobs and pull out certain properties for us to display onto the page 
-// Some properties to be stored for
-
 // DISPLAY: jobtitle, company, formattedLocation, snippet, url, formattedRelativeTime
 
 // TO STORE: latitude, longtitude, for Google Maps API for time zones
-        // .start for
+
+
+
 
 // GET data from Google Maps API
 // make and multiple ajax call to Google Maps using .when because we will be passing an array 
 // What will be returned is an array-like object in which we will use .map to iterate through this array and do stuff
 
 remote.googleData = function(data){
+
     var latlongArray = [];
 
     data.map(function(jobs){
@@ -91,20 +91,15 @@ remote.googleData = function(data){
             getTimeZone(timeZoneArray);
         });
 
-// take timezone data thats being pushed to the page
-// for the timezone data that appears (0,0), we need to change that data to say ("NA") via "if" statements
-
     function getTimeZone(timeZoneArray){
         remote.timeZone = timeZoneArray.map(function(time){
-            if (time[0].status === 'ZERO_RESULTS'){
-                time[0].timeZoneName = 'NA';
-            }
             return time[0].timeZoneName;
         })
-        // console.log(remote.timeZone);
+        console.log(remote.timeZone)
         remote.finalResults(data);
     };
 }; 
+
 
 // need to append timezone data onto the page according to the appropriate job posting
 
@@ -115,37 +110,23 @@ remote.finalResults = function(data){
     // console.log(data);
 
     data.forEach(function(jobs, i){
+        console.log(i);
+
         jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
-            var jobTitle = $('<h2>').text(jobs.jobtitle);
-            var company = $('<h3>').text(jobs.company);
-            var location = $('<h3>').text(jobs.formattedLocation);
-            var jobDescription = $('<p>').text(jobs.snippet);
-            var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
-            var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
-            var zone = $('<h3>').text(remote.timeZone[i]);
+        var jobTitle = $('<h2>').text(jobs.jobtitle);
+        var company = $('<h3>').text(jobs.company);
+        var location = $('<h3>').text(jobs.formattedLocation);
+        var jobDescription = $('<p>').text(jobs.snippet);
+        var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
 
-            // we need to take these variables that we've defined and displa it on our html
-            $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
-        //};
+        var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
+        var zone = $('<h3>').text(remote.timeZone[i]);
+
+        // we need to take these variables that we've defined and displa it on our html
+        $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
     });
 };
-
-// 1) Change timezone data to abreiviated form via "if" statements
-
-// 3) Create an event-listener for the coutnry drop-down menu that will allow
-// the user to search for jobs by country
-
-// 4) Allow users to go to next page and recieve next 10 results
-// do this by creating an event listener when the user clicks "next page"
-// do this using "simplePagination.js"
-
-// 5) Make search bar empty most recent results and load next search.
-// when user puts curser on "search" field, remove text.
-// Remove job counter 
-
-// When the user clicks find without entering a search query, we need to
-// prompt user to "enter query"
 
 
 // INIT FUNCTION
@@ -153,7 +134,6 @@ remote.init = function() {
     $('form').on('submit', function(e){
         e.preventDefault();
         var query = $('input[type=text]').val();
-        var country = $("select").val();
         // console.log(query);
     	remote.getData(query);
     });
@@ -165,22 +145,4 @@ $(function(){
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 
