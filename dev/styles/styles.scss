@@ -61,9 +61,16 @@ header {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	background: linear-gradient(0deg, rgba(40, 40, 40, 0.7), rgba(40, 40, 40, 0.7));
-	margin: 15px;
+	position: relative;
 
+	.overlay{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 98vw;
+		height: 96vh;
+		background: linear-gradient(0deg, rgba(20, 20, 20, 0.7), rgba(20, 20, 20, 0.7));
+	}
 
 	.flex-container{
 		display: flex;
@@ -170,8 +177,7 @@ button.search-icon {
 	justify-content: space-between;
 
 	form {
-		display: flex;
-		justify-content: flex-end;
+		align-self: flex-end;
 		margin-right: 20px;
 		padding: 15px;
 	}
@@ -200,7 +206,7 @@ button.search-icon {
 		}
 	}
 
-	input#second-submit {
+	input#second-submit{
 		font-size: 1.6rem;
 		padding: 11px 20px;
 		background: $lightgold;

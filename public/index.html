@@ -13,6 +13,7 @@
 </head>
 <body>
 	<header>
+		<div class="overlay">
 		<video class="header-video" autoplay loop poster="images/video/header_video.jpg">
 			<source src="images/video/header_video2.mp4" type="video/mp4">
 		</video>
@@ -23,7 +24,7 @@
 			<h2>Welcome! There are 36,457 jobs available</h2>
 
 			<form action="" class="form-container1" id="first-search">
-				<input type="text" id="search-query" name="search-query" placeholder="e.g. Front-end Developer">
+				<input type="text" id="search-query" name="search-query" placeholder="e.g. Front-end Developer" required>
 
 			<select name="example" placeholder="Select a country" id="search-country">
 			<option value="canada">Canada</option>
@@ -86,6 +87,7 @@
 				<button class ="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
 			</form>
 		</div>
+		</div>
 	</header>
 
 	<main>
@@ -99,7 +101,7 @@
 			</div>
 		</div>
 		<form action="" class="form-container" id="second-search">
-		<input type="text" id="second-search-query" name="search-query" placeholder="e.g. front-end SASS">
+		<input type="text" id="second-search-query" name="search-query" placeholder="e.g. front-end SASS" required>
 
 		<select name="example" placeholder="Select a country" id="second-search-country" >
 		    <option value="canada">Canada</option>
@@ -158,8 +160,7 @@
 		    <option value="ve">Venezuela</option>
 		</select>
 
-			<input type="submit" id="second-
-			submit" value="SEARCH">
+			<input type="submit" id="second-submit" value="SEARCH">
 			<button class ="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
 		</form>
 	</nav>
@@ -176,12 +177,12 @@
 
 		<section id="results" class="results"><!-- Keep Empty for Erin to work on -->
 
-			
 		</section>
+			<div class="pagination">
+				
+			</div>
 
-		<div class="pagination">
-			
-		</div>
+		
 	</div>
 
 	<footer>
