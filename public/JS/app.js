@@ -19,7 +19,7 @@ remote.renderPagination = function(data, resetPagination){
         if(resetPagination) {
             $('.pagination').pagination('selectPage', 1);
         }
-    }else{
+    } else {
         $('.pagination').pagination({
             items: totalResults,
             itemsOnPage: resultsPerPage,
@@ -162,13 +162,12 @@ remote.finalResults = function(data){
             $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
         //};
     });
-    //remote.clearInputs();
 };
 
-// remote.clearInputs = function(){
-//     $('input[type=text]').val('');
-//     $('select').val('');
-// }
+remote.clearInputs = function(){
+    results.query = $('#second-submit').val('');
+    results.country = $('#second-search-country').val('');
+}
 
 // 1) Change timezone data to abreiviated form via "if" statements
 
@@ -189,7 +188,7 @@ remote.finalResults = function(data){
 
 // INIT FUNCTION
 remote.init = function() {
-    $('form').on('submit', function(e){
+    $('#first-search').on('submit', function(e){
         e.preventDefault();
         $('.results').empty();
         $('header').hide();
@@ -198,17 +197,14 @@ remote.init = function() {
         results.query = $('input[type=text]').val();
         results.country = $('select').val();
     	remote.getData(0, true);
+        remote.secondSearch();
     });
 };
 
 remote.secondSearch = function() {
     $('#second-search').on('submit', function(e){
         e.preventDefault();
-        $('.results').empty();
-        $('header').hide();
-        $('main').show();
-        $('footer').show();
-        results.query = $('input[type=text]').val();
+        results.query = $('#second-search-query').val();
         results.country = $('#second-search-country').val();
         remote.getData(0, true);
     });
