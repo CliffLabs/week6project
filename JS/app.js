@@ -132,7 +132,7 @@ remote.googleData = function(data){
     function getTimeZone(timeZoneArray){
         remote.timeZone = timeZoneArray.map(function(time){
             if (time[0].status === 'ZERO_RESULTS'){
-                time[0].timeZoneName = 'NA';
+                time[0].timeZoneName = 'Not Available';
             }
             return time[0].timeZoneName;
         })
@@ -152,16 +152,25 @@ remote.finalResults = function(data){
     data.forEach(function(jobs, i){
         jobs.snippet = jobs.snippet.replace(/(<([^>]+)>)/ig, '');
 
-            var jobTitle = $('<h2>').text(jobs.jobtitle);
-            var company = $('<h3>').text(jobs.company);
-            var location = $('<h3>').text(jobs.formattedLocation);
-            var jobDescription = $('<p>').text(jobs.snippet);
-            var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Get More</button></a>');
-            var postingTime = $('<h3>').text(jobs.formattedRelativeTime);
-            var zone = $('<h3>').text(remote.timeZone[i]);
 
-            // we need to take these variables that we've defined and displa it on our html
-            $('.results').append(jobTitle, company, location, jobDescription, indeedUrl, postingTime, zone);
+            var jobDiv = $('<div>').addClass('jobItem');
+            var jobTitle = $('<h2>').text(jobs.jobtitle);
+            var company = $('<h3>').text('Company: ' + jobs.company);
+            var location = $('<h3>').text('Location: ' + jobs.formattedLocation);
+            var postingTime = $('<h4>').text('Posted: ' + jobs.formattedRelativeTime);
+            var jobDescription = $('<p>').text(jobs.snippet);
+            var indeedUrl = $('<p>').html('<a href = "' + jobs.url + '" target= "_blank"><button>Apply Now</button></a>');
+            var zoneDiv = $('<div>').addClass('rightItem');
+            var zone = $('<h4>').text('Time Zone: ' + remote.timeZone[i]);
+            var rightDiv = zoneDiv.append( zone, indeedUrl);
+            var jobDiv2 = $('<div>').addClass('leftItem');
+            var leftDiv = jobDiv2.append(jobTitle, company, location,  jobDescription, postingTime);
+            var finalDiv = jobDiv.append(leftDiv, rightDiv);
+
+
+            // // we need to take these variables that we've defined and displa it on our html
+            $('.results').append(finalDiv);
+
         //};
     });
 };
@@ -171,21 +180,9 @@ remote.clearInputs = function(){
     remote.country = $('#second-search-country').val('');
 }
 
-// 1) Change timezone data to abreiviated form via "if" statements
 
-// 3) Create an event-listener for the coutnry drop-down menu that will allow
-// the user to search for jobs by country
 
-// 4) Allow users to go to next page and recieve next 10 results
-// do this by creating an event listener when the user clicks "next page"
-// do this using "simplePagination.js"
 
-// 5) Make search bar empty most recent results and load next search.
-// when user puts curser on "search" field, remove text.
-// Remove job counter 
-
-// When the user clicks find without entering a search query, we need to
-// prompt user to "enter query"
 
 
 // INIT FUNCTION
@@ -193,9 +190,11 @@ remote.init = function() {
     $('#first-search').on('submit', function(e){
         e.preventDefault();
         $('.results').empty();
-        $('header').slideUp();
+        $('header').slideUp(600);
+        $('.flex-container').fadeOut();
+        $('.header-video').fadeOut();
         $('main').show();
-        $('footer').show();
+        $('footer').fadeIn();
         remote.query = $('input[type=text]').val();
         remote.country = $('select').val();
     	remote.getData(0, true);
@@ -222,21 +221,21 @@ remote.init = function() {
         // $('.second-nav').click(function(){
         //     $('i').toggle();
         // });
-    $('.second-nav').on('click', function(e){
-        e.preventDefault();
-        //$(e.currentTarget).slideUp();
-        $('.fa-caret-down').show();
-        $('.fa-caret-up').hide();
-        $(e.currentTarget).addClass('transformed');
-        $(e.currentTarget).removeClass('.second-nav');
-    });
-    $('.transformed').on('click', function(e){
-        e.preventDefault();
-        $('.fa-caret-down').hide();
-        $('.fa-caret-up').show();
-        $(e.currentTarget).addClass('.second-nav');
-        $(e.currentTarget).removeClass('transformed');
-    })
+    // $('.second-nav').on('click', function(e){
+    //     e.preventDefault();
+    //     //$(e.currentTarget).slideUp();
+    //     $('.fa-caret-down').show();
+    //     $('.fa-caret-up').hide();
+    //     $(e.currentTarget).addClass('transformed');
+    //     $(e.currentTarget).removeClass('.second-nav');
+    // });
+    // $('.transformed').on('click', function(e){
+    //     e.preventDefault();
+    //     $('.fa-caret-down').hide();
+    //     $('.fa-caret-up').show();
+    //     $(e.currentTarget).addClass('.second-nav');
+    //     $(e.currentTarget).removeClass('transformed');
+    // })
 };
 
 //SECOND SEARCH
@@ -260,6 +259,9 @@ $(function(){
     remote.init();
     $('main').hide();
     $('footer').hide();
+    $('.nav-logo').on('click', function(){
+        location.reload();
+    });
 });
 
 
