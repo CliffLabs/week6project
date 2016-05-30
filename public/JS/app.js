@@ -23,7 +23,7 @@ $.ajax({
         format: 'json',
         q: query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
         latlong: '1',
-        co: country,
+        // co: country,
         //start: 0,
         sort: 'date',
         limit: '25'
