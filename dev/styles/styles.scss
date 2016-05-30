@@ -222,28 +222,28 @@ button.search-icon {
 		font-size: 1.6rem;
 	}
 
- }
+}
 
- .nav-logo{
- 	display: flex;
- 	margin-left: 40px;
- 	h2 {
- 		font-size: 2.3rem;
- 	}
- 	h3 {
- 		font-size: 2rem;
- 	}
- 	.nav-text{
- 		color: $offwhite;
- 		letter-spacing: 1px;
- 		text-transform: uppercase;
- 		display: flex;
- 		flex-direction: column;
- 		line-height: 1;
- 		margin-top: 12px;
- 		margin-left: 5px;
- 	}
- }
+.nav-logo{
+	display: flex;
+	margin-left: 40px;
+	h2 {
+		font-size: 2.3rem;
+	}
+	h3 {
+		font-size: 2rem;
+	}
+	.nav-text{
+		color: $offwhite;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		display: flex;
+		flex-direction: column;
+		line-height: 1;
+		margin-top: 12px;
+		margin-left: 5px;
+	}
+}
 
 // SECOND NAV
 
@@ -260,6 +260,10 @@ button.search-icon {
 		margin: 0 10px;
 		text-transform: uppercase;
 		&:hover {
+			color: $lightteal;
+		}
+
+		&.clicked{
 			color: $lightteal;
 		}
 	}
