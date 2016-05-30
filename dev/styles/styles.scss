@@ -176,7 +176,7 @@ button.search-icon {
 		padding: 15px;
 	}
 
-	input#search-query-nav {
+	input#second-search-query {
 		width: 40%;
 		font-size: 1.6rem;
 		padding: 9px;
@@ -200,7 +200,7 @@ button.search-icon {
 		}
 	}
 
-	input#submit {
+	input#second-submit {
 		font-size: 1.6rem;
 		padding: 11px 20px;
 		background: $lightgold;
@@ -209,7 +209,7 @@ button.search-icon {
 		transition: all 0.5s;
 	}
 
-	select#search-country-nav {
+	select#second-search-country{
 		width: 40%;
 		background-position: 93% 50%; 
 		background: lightgrey;
