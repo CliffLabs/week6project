@@ -193,7 +193,7 @@ remote.init = function() {
     $('#first-search').on('submit', function(e){
         e.preventDefault();
         $('.results').empty();
-        $('header').hide();
+        $('header').slideUp();
         $('main').show();
         $('footer').show();
         remote.query = $('input[type=text]').val();
@@ -217,8 +217,26 @@ remote.init = function() {
         remote.sort = "date";
         remote.getData(0, true);
 
-    })
+    });
 
+        // $('.second-nav').click(function(){
+        //     $('i').toggle();
+        // });
+    $('.second-nav').on('click', function(e){
+        e.preventDefault();
+        //$(e.currentTarget).slideUp();
+        $('.fa-caret-down').show();
+        $('.fa-caret-up').hide();
+        $(e.currentTarget).addClass('transformed');
+        $(e.currentTarget).removeClass('.second-nav');
+    });
+    $('.transformed').on('click', function(e){
+        e.preventDefault();
+        $('.fa-caret-down').hide();
+        $('.fa-caret-up').show();
+        $(e.currentTarget).addClass('.second-nav');
+        $(e.currentTarget).removeClass('transformed');
+    })
 };
 
 //SECOND SEARCH
