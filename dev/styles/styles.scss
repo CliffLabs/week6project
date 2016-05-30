@@ -91,7 +91,7 @@ header {
 		font-family: $Droid;
 		color: $offwhite;
 		letter-spacing: -1px;
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 	}
 }
 
@@ -110,8 +110,8 @@ header {
 
 
 input#search-query {
-	width: 30%;
-	font-size: 2.3rem;
+	width: 45%;
+	font-size: 2.2rem;
 	padding: 9px;
 	color: #333;
 	&:focus{
@@ -134,8 +134,9 @@ input#search-query {
 }
 
 select#search-country {
-	width: 30%;
-	background-position: 93% 50%; 
+	width: 35%;
+	background-image: url('../images/select-caret.svg');
+	// background-position: 93% 50%; 
 	background: lightgrey;
 	border: 0;
 	border-radius: 0;
@@ -143,11 +144,11 @@ select#search-country {
 	padding: 10px 20px;
 	color: #333;
 	-webkit-appearance: none;
-	font-size: 2.3rem;
+	font-size: 2.2rem;
 }
 
 input#submit {
-	font-size: 2.3rem;
+	font-size: 2.2rem;
 	padding: 11px 20px;
 	background: $gold;
 	color: $white;

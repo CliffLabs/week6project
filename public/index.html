@@ -21,12 +21,13 @@
 		<div class="flex-container">
 			<img src="images/laptop.svg" alt="laptop icon" class = "laptop-svg">
 			<h1>REMOTE DEV JOBS</h1>
-			<h2>Welcome! There are 36,457 jobs available</h2>
+			<h2>Search for remote developer jobs below</h2>
 
 			<form action="" class="form-container1" id="first-search">
 				<input type="text" id="search-query" name="search-query" placeholder="e.g. Front-end Developer" required>
 
-			<select name="example" placeholder="Select a country" id="search-country">
+			<select name="example" placeholder="Select a country" id="search-country" required>
+			<option value="" disabled selected>Select Country</option>
 			<option value="canada">Canada</option>
 				<option value="us">United States</option>
 				<option disabled id="divide">──────────────────</option>
@@ -103,7 +104,8 @@
 		<form action="" class="form-container" id="second-search">
 		<input type="text" id="second-search-query" name="search-query" placeholder="e.g. front-end SASS" required>
 
-		<select name="example" placeholder="Select a country" id="second-search-country" >
+		<select name="example" placeholder="Select a country" id="second-search-country" require>
+			<option value="" disabled selected>Select Country</option>
 		    <option value="canada">Canada</option>
 		    <option value="us">United States</option>
 		    <option disabled id="divide">──────────────────</option>
