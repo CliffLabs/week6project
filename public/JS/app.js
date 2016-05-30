@@ -11,6 +11,7 @@ var remote = {};
 
 var googleAPIKey = 'AIzaSyDwrMAUq00y5-e7XSYl51CjQadoGn9REF0';
 
+//Pagination for results
 remote.renderPagination = function(data, resetPagination){
     var totalResults = data.totalResults;
     var resultsPerPage = 10;
@@ -45,11 +46,11 @@ $.ajax({
     	publisher: '8031956003452346',
         v: '2',
         format: 'json',
-        q: results.query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
+        q: remote.query + " remote developer -'no remote' -'not remote' -'not a remote' -'no opportunities for remote'",
         latlong: '1',
-        co: results.country,
+        sort: remote.sort,
+        co: remote.country,
         start: startAt,
-        sort: 'date',
         limit: '10'
     }
 }).then(function(data) {
@@ -166,8 +167,8 @@ remote.finalResults = function(data){
 };
 
 remote.clearInputs = function(){
-    results.query = $('#second-submit').val('');
-    results.country = $('#second-search-country').val('');
+    remote.query = $('#second-submit').val('');
+    remote.country = $('#second-search-country').val('');
 }
 
 // 1) Change timezone data to abreiviated form via "if" statements
@@ -195,22 +196,46 @@ remote.init = function() {
         $('header').hide();
         $('main').show();
         $('footer').show();
-        results.query = $('input[type=text]').val();
-        results.country = $('select').val();
+        remote.query = $('input[type=text]').val();
+        remote.country = $('select').val();
     	remote.getData(0, true);
         remote.secondSearch();
     });
+    $('.relevance').on('click', function(e){
+        e.preventDefault();
+        $(e.currentTarget).addClass('clicked');
+        $('.date').removeClass('clicked');
+        console.log("results clicked");
+        remote.sort = "relevance";
+        remote.getData(0, true);
+    });
+    $('.date').on('click', function(e){
+        e.preventDefault();
+        $(e.currentTarget).addClass('clicked');
+        $('.relevance').removeClass('clicked');
+        console.log("date clicked");
+        remote.sort = "date";
+        remote.getData(0, true);
+
+    })
+
 };
 
+//SECOND SEARCH
 remote.secondSearch = function() {
     $('#second-search').on('submit', function(e){
         e.preventDefault();
         $('.results').empty();
-        results.query = $('#second-search-query').val();
-        results.country = $('#second-search-country').val();
+        remote.query = $('#second-search-query').val();
+        remote.country = $('#second-search-country').val();
         remote.getData(0, true);
     });
 };
+
+// //SORT RESULTS
+// remote.sortResults = function(){
+//     if ($)
+// }
 
 // DOCUMENT READY
 $(function(){
