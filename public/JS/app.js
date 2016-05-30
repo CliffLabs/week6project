@@ -53,16 +53,17 @@ $.ajax({
         limit: '10'
     }
 }).then(function(data) {
-        remote.renderPagination(data, resetPagination);
-        $('.results').html('');
-        remote.googleData(data.results);
-        // ERIN'S Code -- check with Sarah
-        //if (data.totalResults === 0) {
-        //     console.log("no results!");
-        //   $('.results').append('<h3>Sorry, there are no results for your query.</br> Try searching again using different terms.</h3>') 
-        // } else {
-        //     remote.googleData(data.results);
-        // };
+        // remote.renderPagination(data, resetPagination);
+        // $('.results').html('');
+        // remote.googleData(data.results);
+        if (data.totalResults === 0) {
+            console.log("no results!");
+          $('.results').append('<h3>Sorry, there are no results for your query.</br> Try searching again using different terms.</h3>') 
+        } else {
+            remote.renderPagination(data, resetPagination);
+            $('.results').html('');
+            remote.googleData(data.results);
+        };
 	});
 };
 
@@ -204,6 +205,7 @@ remote.init = function() {
 remote.secondSearch = function() {
     $('#second-search').on('submit', function(e){
         e.preventDefault();
+        $('.results').empty();
         results.query = $('#second-search-query').val();
         results.country = $('#second-search-country').val();
         remote.getData(0, true);
